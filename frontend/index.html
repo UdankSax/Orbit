@@ -1,121 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Orbit</title>
+    <title>Orbit — Personal Planner</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <meta name="theme-color" content="#111318">
 </head>
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+<div class="app">
+
+    <!-- ================================================= -->
+    <!-- TOPBAR -->
+    <!-- ================================================= -->
 
     <header class="topbar">
 
-        <div>
-            <h1>Orbit</h1>
-            <p>Personal Command Center</p>
+        <div class="brand">
+            <div class="brand-mark">O</div>
+
+            <div>
+                <h1>Orbit</h1>
+                <span>Adaptive Personal Planner</span>
+            </div>
         </div>
 
-        <button id="generateBtn">
+        <button
+            id="generateScheduleBtn"
+            class="primary-btn"
+        >
             Generate Schedule
         </button>
 
     </header>
 
 
+    <!-- ================================================= -->
+    <!-- DASHBOARD -->
+    <!-- ================================================= -->
+
     <main class="dashboard">
 
+        <!-- SUMMARY -->
 
-        <!-- =========================
-             SUMMARY
-        ========================== -->
+        <section class="summary-grid">
 
-        <section class="summary">
+            <div class="summary-card">
+                <span class="summary-label">Active Goals</span>
+                <strong id="goalCount">0</strong>
+            </div>
 
-            <div class="card">
-                <span>Tasks</span>
+            <div class="summary-card">
+                <span class="summary-label">Tasks</span>
                 <strong id="taskCount">0</strong>
             </div>
 
-            <div class="card">
-                <span>Scheduled Today</span>
+            <div class="summary-card">
+                <span class="summary-label">Scheduled</span>
                 <strong id="scheduledCount">0</strong>
             </div>
 
-            <div class="card">
-                <span>Activities Today</span>
+            <div class="summary-card">
+                <span class="summary-label">Activities</span>
                 <strong id="activityCount">0</strong>
             </div>
 
         </section>
 
 
-        <!-- =========================
-             TODAY'S SCHEDULE
-        ========================== -->
+        <!-- ================================================= -->
+        <!-- DAILY PLAN -->
+        <!-- ================================================= -->
 
-        <section class="panel">
+        <section class="panel schedule-panel">
 
-            <div class="panel-header">
+            <div class="panel-header schedule-header">
 
                 <div>
-                    <h2>Today's Schedule</h2>
-                    <p id="todayDate"></p>
+                    <span class="eyebrow">DAILY PLAN</span>
+                    <h2 id="selectedDateLabel">
+                        Today
+                    </h2>
+                </div>
+
+                <div class="date-controls">
+
+                    <button id="previousDayBtn">
+                        ←
+                    </button>
+
+                    <button
+                        id="todayBtn"
+                        class="today-btn"
+                    >
+                        Today
+                    </button>
+
+                    <button id="nextDayBtn">
+                        →
+                    </button>
+
                 </div>
 
             </div>
 
-            <div id="scheduleContainer" class="timeline">
 
-                <p class="loading">
-                    Loading schedule...
-                </p>
-
+            <div
+                id="scheduleContainer"
+                class="timeline"
+            >
+                <div class="empty-state">
+                    Loading your day...
+                </div>
             </div>
 
         </section>
 
 
-        <!-- =========================
-             ADD TASK
-        ========================== -->
+        <!-- ================================================= -->
+        <!-- GOALS -->
+        <!-- ================================================= -->
 
         <section class="panel">
 
             <div class="panel-header">
+
                 <div>
-                    <h2>Add Task</h2>
-                    <p>Create something Orbit should schedule for you.</p>
+                    <span class="eyebrow">DIRECTION</span>
+                    <h2>Goals</h2>
+                </div>
+
+            </div>
+
+
+            <div
+                id="goalsContainer"
+                class="goals-grid"
+            >
+                <div class="empty-state">
+                    No goals yet.
                 </div>
             </div>
 
 
-            <form id="taskForm" class="form">
+            <form id="goalForm" class="form">
 
-                <div class="form-group">
+                <div class="form-row">
 
-                    <label for="taskTitle">
-                        Title
+                    <div class="field">
+                        <label for="goalName">
+                            Goal
+                        </label>
+
+                        <input
+                            id="goalName"
+                            type="text"
+                            placeholder="e.g. DSA"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="field">
+                        <label for="goalTarget">
+                            Weekly target (hours)
+                        </label>
+
+                        <input
+                            id="goalTarget"
+                            type="number"
+                            min="0.5"
+                            step="0.5"
+                            value="5"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="field">
+                        <label for="goalPriority">
+                            Priority
+                        </label>
+
+                        <input
+                            id="goalPriority"
+                            type="number"
+                            min="1"
+                            max="10"
+                            value="5"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="goalDescription">
+                        Description
                     </label>
 
                     <input
+                        id="goalDescription"
                         type="text"
-                        id="taskTitle"
-                        placeholder="e.g. Solve DSA Problem"
-                        required
+                        placeholder="What are you trying to achieve?"
                     >
 
                 </div>
 
 
-                <div class="form-group">
+                <button
+                    type="submit"
+                    class="secondary-btn"
+                >
+                    Add Goal
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- TASKS -->
+        <!-- ================================================= -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <span class="eyebrow">WORK</span>
+                    <h2>Tasks</h2>
+                </div>
+
+            </div>
+
+
+            <form id="taskForm" class="form">
+
+                <div class="form-row">
+
+                    <div class="field">
+                        <label for="taskTitle">
+                            Task
+                        </label>
+
+                        <input
+                            id="taskTitle"
+                            type="text"
+                            placeholder="e.g. Solve 3 array problems"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="field">
+                        <label for="taskGoal">
+                            Goal
+                        </label>
+
+                        <select id="taskGoal">
+                            <option value="">
+                                No goal
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="field">
+                        <label for="taskMinutes">
+                            Estimated minutes
+                        </label>
+
+                        <input
+                            id="taskMinutes"
+                            type="number"
+                            min="5"
+                            step="5"
+                            value="60"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="field">
+                        <label for="taskPriority">
+                            Priority
+                        </label>
+
+                        <input
+                            id="taskPriority"
+                            type="number"
+                            min="1"
+                            max="10"
+                            value="5"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="field">
+                        <label for="taskDeadline">
+                            Deadline
+                        </label>
+
+                        <input
+                            id="taskDeadline"
+                            type="datetime-local"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="field">
 
                     <label for="taskDescription">
                         Description
@@ -123,57 +333,103 @@
 
                     <textarea
                         id="taskDescription"
-                        placeholder="What needs to be done?"
+                        rows="2"
+                        placeholder="Optional"
                     ></textarea>
 
                 </div>
 
 
+                <button
+                    type="submit"
+                    class="secondary-btn"
+                >
+                    Add Task
+                </button>
+
+            </form>
+
+
+            <div
+                id="tasksContainer"
+                class="task-list"
+            >
+                <div class="empty-state">
+                    No tasks.
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- ACTIVITIES -->
+        <!-- ================================================= -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <span class="eyebrow">FIXED TIME</span>
+                    <h2>Activities</h2>
+                </div>
+
+            </div>
+
+
+            <form id="activityForm" class="form">
+
                 <div class="form-row">
 
-                    <div class="form-group">
-
-                        <label for="taskMinutes">
-                            Estimated Time (minutes)
+                    <div class="field">
+                        <label for="activityTitle">
+                            Activity
                         </label>
 
                         <input
-                            type="number"
-                            id="taskMinutes"
-                            min="1"
-                            placeholder="90"
+                            id="activityTitle"
+                            type="text"
+                            placeholder="e.g. Gym"
                             required
                         >
-
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="field">
 
-                        <label for="taskPriority">
-                            Priority
+                        <label for="activityDay">
+                            Day
                         </label>
 
-                        <select id="taskPriority">
+                        <select id="activityDay">
 
-                            <option value="1">
-                                1 — Low
+                            <option value="MONDAY">
+                                Monday
                             </option>
 
-                            <option value="2">
-                                2 — Medium
+                            <option value="TUESDAY">
+                                Tuesday
                             </option>
 
-                            <option value="3" selected>
-                                3 — High
+                            <option value="WEDNESDAY">
+                                Wednesday
                             </option>
 
-                            <option value="4">
-                                4 — Very High
+                            <option value="THURSDAY">
+                                Thursday
                             </option>
 
-                            <option value="5">
-                                5 — Critical
+                            <option value="FRIDAY">
+                                Friday
+                            </option>
+
+                            <option value="SATURDAY">
+                                Saturday
+                            </option>
+
+                            <option value="SUNDAY">
+                                Sunday
                             </option>
 
                         </select>
@@ -183,137 +439,31 @@
                 </div>
 
 
-                <div class="form-group">
-
-                    <label for="taskDeadline">
-                        Deadline
-                    </label>
-
-                    <input
-                        type="datetime-local"
-                        id="taskDeadline"
-                        required
-                    >
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="primary-button"
-                >
-                    Add Task
-                </button>
-
-            </form>
-
-        </section>
-
-
-        <!-- =========================
-             ADD ACTIVITY
-        ========================== -->
-
-        <section class="panel">
-
-            <div class="panel-header">
-
-                <div>
-                    <h2>Add Activity</h2>
-                    <p>Add something that permanently occupies time.</p>
-                </div>
-
-            </div>
-
-
-            <form id="activityForm" class="form">
-
-                <div class="form-group">
-
-                    <label for="activityTitle">
-                        Activity
-                    </label>
-
-                    <input
-                        type="text"
-                        id="activityTitle"
-                        placeholder="e.g. Gym"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="activityDay">
-                        Day
-                    </label>
-
-                    <select id="activityDay">
-
-                        <option value="MONDAY">
-                            Monday
-                        </option>
-
-                        <option value="TUESDAY">
-                            Tuesday
-                        </option>
-
-                        <option value="WEDNESDAY">
-                            Wednesday
-                        </option>
-
-                        <option value="THURSDAY">
-                            Thursday
-                        </option>
-
-                        <option value="FRIDAY">
-                            Friday
-                        </option>
-
-                        <option value="SATURDAY">
-                            Saturday
-                        </option>
-
-                        <option value="SUNDAY">
-                            Sunday
-                        </option>
-
-                    </select>
-
-                </div>
-
-
                 <div class="form-row">
 
-                    <div class="form-group">
-
+                    <div class="field">
                         <label for="activityStart">
-                            Start Time
+                            Start
                         </label>
 
                         <input
-                            type="time"
                             id="activityStart"
+                            type="time"
                             required
                         >
-
                     </div>
 
 
-                    <div class="form-group">
-
+                    <div class="field">
                         <label for="activityEnd">
-                            End Time
+                            End
                         </label>
 
                         <input
-                            type="time"
                             id="activityEnd"
+                            type="time"
                             required
                         >
-
                     </div>
 
                 </div>
@@ -321,62 +471,37 @@
 
                 <button
                     type="submit"
-                    class="primary-button"
+                    class="secondary-btn"
                 >
                     Add Activity
                 </button>
 
             </form>
 
-        </section>
 
-
-        <!-- =========================
-             TASKS
-        ========================== -->
-
-        <section class="panel">
-
-            <div class="panel-header">
-                <h2>Tasks</h2>
-            </div>
-
-            <div id="tasksContainer">
-
-                <p class="loading">
-                    Loading tasks...
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             ACTIVITIES
-        ========================== -->
-
-        <section class="panel">
-
-            <div class="panel-header">
-                <h2>Activities Today</h2>
-            </div>
-
-            <div id="activitiesContainer">
-
-                <p class="loading">
-                    Loading activities...
-                </p>
-
+            <div
+                id="activitiesContainer"
+                class="activity-list"
+            >
+                <div class="empty-state">
+                    No activities.
+                </div>
             </div>
 
         </section>
 
     </main>
 
+</div>
 
-    <script src="script.js"></script>
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<script src="script.js"></script>
 
 </body>
-
 </html>
