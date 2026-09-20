@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Orbit</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="topbar">
+
+        <div>
+            <h1>Orbit</h1>
+            <p>Personal Command Center</p>
+        </div>
+
+        <button id="generateBtn">
+            Generate Schedule
+        </button>
+
+    </header>
+
+
+    <main class="dashboard">
+
+
+        <!-- =========================
+             SUMMARY
+        ========================== -->
+
+        <section class="summary">
+
+            <div class="card">
+                <span>Tasks</span>
+                <strong id="taskCount">0</strong>
+            </div>
+
+            <div class="card">
+                <span>Scheduled Today</span>
+                <strong id="scheduledCount">0</strong>
+            </div>
+
+            <div class="card">
+                <span>Activities Today</span>
+                <strong id="activityCount">0</strong>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TODAY'S SCHEDULE
+        ========================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Today's Schedule</h2>
+                    <p id="todayDate"></p>
+                </div>
+
+            </div>
+
+            <div id="scheduleContainer" class="timeline">
+
+                <p class="loading">
+                    Loading schedule...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ADD TASK
+        ========================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Add Task</h2>
+                    <p>Create something Orbit should schedule for you.</p>
+                </div>
+            </div>
+
+
+            <form id="taskForm" class="form">
+
+                <div class="form-group">
+
+                    <label for="taskTitle">
+                        Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="taskTitle"
+                        placeholder="e.g. Solve DSA Problem"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="taskDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="taskDescription"
+                        placeholder="What needs to be done?"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="taskMinutes">
+                            Estimated Time (minutes)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="taskMinutes"
+                            min="1"
+                            placeholder="90"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="taskPriority">
+                            Priority
+                        </label>
+
+                        <select id="taskPriority">
+
+                            <option value="1">
+                                1 — Low
+                            </option>
+
+                            <option value="2">
+                                2 — Medium
+                            </option>
+
+                            <option value="3" selected>
+                                3 — High
+                            </option>
+
+                            <option value="4">
+                                4 — Very High
+                            </option>
+
+                            <option value="5">
+                                5 — Critical
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="taskDeadline">
+                        Deadline
+                    </label>
+
+                    <input
+                        type="datetime-local"
+                        id="taskDeadline"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Add Task
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- =========================
+             ADD ACTIVITY
+        ========================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Add Activity</h2>
+                    <p>Add something that permanently occupies time.</p>
+                </div>
+
+            </div>
+
+
+            <form id="activityForm" class="form">
+
+                <div class="form-group">
+
+                    <label for="activityTitle">
+                        Activity
+                    </label>
+
+                    <input
+                        type="text"
+                        id="activityTitle"
+                        placeholder="e.g. Gym"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="activityDay">
+                        Day
+                    </label>
+
+                    <select id="activityDay">
+
+                        <option value="MONDAY">
+                            Monday
+                        </option>
+
+                        <option value="TUESDAY">
+                            Tuesday
+                        </option>
+
+                        <option value="WEDNESDAY">
+                            Wednesday
+                        </option>
+
+                        <option value="THURSDAY">
+                            Thursday
+                        </option>
+
+                        <option value="FRIDAY">
+                            Friday
+                        </option>
+
+                        <option value="SATURDAY">
+                            Saturday
+                        </option>
+
+                        <option value="SUNDAY">
+                            Sunday
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="activityStart">
+                            Start Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="activityStart"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="activityEnd">
+                            End Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="activityEnd"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Add Activity
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- =========================
+             TASKS
+        ========================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <h2>Tasks</h2>
+            </div>
+
+            <div id="tasksContainer">
+
+                <p class="loading">
+                    Loading tasks...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ACTIVITIES
+        ========================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <h2>Activities Today</h2>
+            </div>
+
+            <div id="activitiesContainer">
+
+                <p class="loading">
+                    Loading activities...
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
